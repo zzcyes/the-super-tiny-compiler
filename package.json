@@ -1,0 +1,18 @@
+{
+  "name": "the-super-tiny-compiler",
+  "version": "1.0.0",
+  "main": "the-super-tiny-compiler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zzcyes/the-super-tiny-compiler.git"
+  },
+  "author": "zzcyes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zzcyes/the-super-tiny-compiler/issues"
+  },
+  "homepage": "https://github.com/zzcyes/the-super-tiny-compiler#readme"
+}
