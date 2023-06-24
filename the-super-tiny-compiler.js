@@ -65,22 +65,22 @@ function tokenizer(input) {
       continue;
     }
 
-    if (char === "+") {
-      tokens.push({ type: "name", value: "add" });
-      current++;
-      continue;
-    }
+    // if (char === "+") {
+    //   tokens.push({ type: "name", value: "add" });
+    //   current++;
+    //   continue;
+    // }
 
-    if (char === "-") {
-      tokens.push({ type: "name", value: "subtract" });
-      current++;
-      continue;
-    }
+    // if (char === "-") {
+    //   tokens.push({ type: "name", value: "subtract" });
+    //   current++;
+    //   continue;
+    // }
 
-    if (char === ";") {
-      current++;
-      continue;
-    }
+    // if (char === ";") {
+    //   current++;
+    //   continue;
+    // }
 
     let REG_LETTERS = /[a-z]/i;
     if (REG_LETTERS.test(char)) {
@@ -121,11 +121,11 @@ function parser(tokens) {
     }
 
     if (token.type === "paren" && token.value === "(") {
-      token = tokens[++current]; // 获取下一个非括号内容token
+      token = tokens[++current]; // 获取下一个非括号内容token(操作符)
 
       let node = {
         type: "CallExpression",
-        name: token.value, // 保存token的值
+        name: token.value, // 保存token的值(操作符)
         params: [],
       };
 

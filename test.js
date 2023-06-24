@@ -1,7 +1,7 @@
 const fs = require("fs");
 const { tokenizer, parser } = require("./the-super-tiny-compiler.js");
 
-const sourceCode = fs.readFileSync("./source.js", "utf-8");
+const sourceCode = fs.readFileSync("./source.code", "utf-8");
 
 console.debug("sourceCode:", sourceCode);
 
@@ -11,4 +11,4 @@ console.debug("tokens:", tokens);
 
 const ast = parser(tokens);
 
-console.debug("ast:", tokens);
+console.debug("ast:", JSON.stringify(ast, null, 4));
