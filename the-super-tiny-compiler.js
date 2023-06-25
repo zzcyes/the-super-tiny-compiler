@@ -129,9 +129,9 @@ function parser(tokens) {
         params: [],
       };
 
-      token = tokens[++current]; // 再继续获取下一个非括号内容token
-      // 1. 如果不是括号，那么把值继续往params塞
-      // 2. 如果是括号，并且不是右括号，继续塞值
+      token = tokens[++current]; // 再继续获取下一个token（操作的对象参数）
+      // 1. 如果不是括号，那么把值继续往params塞（参数）
+      // 2. 如果是括号，并且不是右括号，继续塞值（又是一个表达式，这里会递归调用walk）
       while (
         token.type !== "paren" ||
         (token.type === "paren" && token.value !== ")")
@@ -159,7 +159,42 @@ function parser(tokens) {
 }
 
 // 3. ast => transformer => newAst
-function traverser(ast, visitor) {}
+function traverser(ast, visitor) {
+  function traverseArray(array, parent) {
+    array.forEach((child) => {
+      traverseNode(child, parent);
+    });
+  }
+
+  function traverseNode(node, parent) {
+    // 获取到visitor的方法，然后遍历子节点的内容
+    let methods = visitor[node.type];
+
+    if (methods && methods.enter) {
+      methods.enter(node, parent);
+    }
+
+    switch (node.type) {
+      case "Program":
+        traverseArray(node.body, node);
+        break;
+      case "CallExpression":
+        traverseArray(node.params, node);
+        break;
+      case "NumberLiteral":
+      case "StringLiteral":
+        break;
+      default:
+        throw new TypeError(node.type);
+    }
+
+    if (methods && methods.exit) {
+      methods.exit(node, parent);
+    }
+  }
+
+  traverseNode(ast, null);
+}
 
 function transformer(ast) {}
 
