@@ -64,3 +64,5 @@ fs.writeFileSync(
 const output = codeGenerator(newAst);
 
 console.debug(">>>>>>【4. newAst => generator => output】>>>>>>", output);
+
+console.debug("产物输出成功～");
