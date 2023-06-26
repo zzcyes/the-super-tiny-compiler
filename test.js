@@ -3,7 +3,10 @@ const {
   tokenizer,
   parser,
   traverser,
+  transformer,
+  compiler,
 } = require("./the-super-tiny-compiler.js");
+const path = require("path");
 
 const sourceCode = fs.readFileSync("./source.code", "utf-8");
 
@@ -15,23 +18,38 @@ console.debug("tokens:", tokens);
 
 const ast = parser(tokens);
 
+fs.writeFileSync(
+  path.resolve(__dirname, "./output/ast.json"),
+  JSON.stringify(ast, null, 4)
+);
+
 console.debug("ast:", JSON.stringify(ast, null, 4));
 
 traverser(ast, {
-  Program: {
-    enter: (node, parent) => {
-      console.debug("enter", node, parent);
-    },
-    exit: (node, parent) => {
-      console.debug("exit", node, parent);
-    },
-  },
   CallExpression: {
     enter: (node, parent) => {
       console.debug("CallExpressionenter", node, parent);
     },
-    exit: (node, parent) => {
-      console.debug("CallExpressionexit", node, parent);
+  },
+  NumberLiteral: {
+    enter: (node, parent) => {
+      console.debug("NumberLiteral>>>>>", node, parent);
     },
   },
 });
+
+let newAst = transformer(ast);
+
+fs.writeFileSync(
+  path.resolve(__dirname, "./output/ast.new.json"),
+  JSON.stringify(newAst, null, 4)
+);
+
+const newSourceCode = compiler(sourceCode);
+console.debug("newSourceCode", newSourceCode);
+
+fs.writeFileSync(
+  path.resolve(__dirname, "./output/new.code.js"),
+  newSourceCode,
+  "utf-8"
+);
