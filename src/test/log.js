@@ -7,9 +7,12 @@ const {
   traverser,
   transformer,
   codeGenerator,
-} = require("./the-super-tiny-compiler.js");
+} = require(path.resolve(__dirname, "../core/the-super-tiny-compiler.js"));
 
-const input = fs.readFileSync("./source.code", "utf-8");
+const input = fs.readFileSync(
+  path.resolve(__dirname, "./input/code.input"),
+  "utf-8"
+);
 
 console.debug(">>>>>>【0. input 】>>>>>>", input);
 
@@ -20,7 +23,7 @@ console.debug(">>>>>>【1. input  => tokenizer   => tokens】>>>>>>", tokens);
 const ast = parser(tokens);
 
 fs.writeFileSync(
-  path.resolve(__dirname, "./output/ast.json"),
+  path.resolve(__dirname, "./output/ast.old.json"),
   JSON.stringify(ast, null, 4)
 );
 

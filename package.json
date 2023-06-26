@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "the-super-tiny-compiler.js",
   "scripts": {
-    "start":"node ./test.js",
-    "start:range":"node ./test.range.js"
+    "test":"node ./src/test/index.js",
+    "test:log":"node ./src/test/log.js"
   },
   "repository": {
     "type": "git",
