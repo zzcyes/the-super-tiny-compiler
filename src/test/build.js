@@ -65,4 +65,4 @@ const output = codeGenerator(newAst);
 
 console.debug(">>>>>>【4. newAst => generator => output】>>>>>>", output);
 
-console.debug("产物输出成功～");
+console.debug("成功输出产物到 【/src/test/output】 目录下～");

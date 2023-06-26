@@ -1,3 +1,4 @@
+```markdown
 /**
  * FINALLY! We'll create our `compiler` function. Here we will link together
  * every part of the pipeline.
@@ -7,7 +8,7 @@
  *   3. ast    => transformer => newAst
  *   4. newAst => generator   => output
  */
-
+```
 
 ## 说明
 
@@ -18,7 +19,7 @@ const output = compiler(input); // (add 2 (subtract 4 2))
 
 ## 命令
 
-- 运行测试代码：
+### 测试代码
 
 ```shell
 yarn test
@@ -26,13 +27,14 @@ yarn test
 npm test 
  ```
 
-- 输出产物至 `/src/test/output`：
-  - `ast.old.json` 代码转换前的 ast
-  - `ast.new.json` 代码转化后的 ast 
-  - `code.output`  转化后的代码
+### 输出产物至 `/src/test/output`
 
 ```shell
 yarn build
 # or
 npm build 
 ```
+
+- `ast.old.json` 代码转换前的 ast
+- `ast.new.json` 代码转化后的 ast 
+- `code.output`  转化后的代码
