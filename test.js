@@ -1,55 +1,30 @@
 const fs = require("fs");
-const {
-  tokenizer,
-  parser,
-  traverser,
-  transformer,
-  compiler,
-} = require("./the-super-tiny-compiler.js");
 const path = require("path");
+const { compiler } = require("./the-super-tiny-compiler.js");
 
-const sourceCode = fs.readFileSync("./source.code", "utf-8");
+/**
+ * FINALLY! We'll create our `compiler` function. Here we will link together
+ * every part of the pipeline.
+ *
+ *   1. input  => tokenizer   => tokens
+ *   2. tokens => parser      => ast
+ *   3. ast    => transformer => newAst
+ *   4. newAst => generator   => output
+ */
 
-console.debug("sourceCode:", sourceCode);
-
-const tokens = tokenizer(sourceCode);
-
-console.debug("tokens:", tokens);
-
-const ast = parser(tokens);
-
-fs.writeFileSync(
-  path.resolve(__dirname, "./output/ast.json"),
-  JSON.stringify(ast, null, 4)
-);
-
-console.debug("ast:", JSON.stringify(ast, null, 4));
-
-traverser(ast, {
-  CallExpression: {
-    enter: (node, parent) => {
-      console.debug("CallExpressionenter", node, parent);
-    },
-  },
-  NumberLiteral: {
-    enter: (node, parent) => {
-      console.debug("NumberLiteral>>>>>", node, parent);
-    },
-  },
-});
-
-let newAst = transformer(ast);
-
-fs.writeFileSync(
-  path.resolve(__dirname, "./output/ast.new.json"),
-  JSON.stringify(newAst, null, 4)
+const sourceCode = fs.readFileSync(
+  path.resolve(__dirname, "./source.code"),
+  "utf-8"
 );
 
 const newSourceCode = compiler(sourceCode);
-console.debug("newSourceCode", newSourceCode);
+
+console.debug("sourceCode:   ", sourceCode);
+console.debug("~~~ 代码转换成功 ⬇️ ⬇️ ⬇️  ~~~");
+console.debug("newSourceCode:", newSourceCode);
 
 fs.writeFileSync(
-  path.resolve(__dirname, "./output/new.code.js"),
+  path.resolve(__dirname, "./source.code.new"),
   newSourceCode,
   "utf-8"
 );

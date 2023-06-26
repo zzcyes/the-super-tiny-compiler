@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "the-super-tiny-compiler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start":"node ./test.js",
+    "start:range":"node ./test.range.js"
   },
   "repository": {
     "type": "git",

@@ -262,7 +262,6 @@ function transformer(ast) {
         // so that we can push arguments.
         // 这里相当于把 ast 当前 CallExpression 节点 node 中 把当前表达式存起来
         // 方便后续使用
-        console.debug("expppp", node);
         node._context = expression.arguments;
 
         // 这里区分是否为第一个 CallExpression
@@ -285,7 +284,6 @@ function transformer(ast) {
       },
     },
   });
-  console.debug(ast);
   return newAst;
 }
 
